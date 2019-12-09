@@ -24,5 +24,39 @@ module.exports = {
         } catch (error) {
             console.log(error);
         }
+    },
+    login: async(req, res) => {
+        try {
+            const result = await Users.findOne({ email: req.body.email })
+            if (result) {
+                await Users.findOne({ email: req.body.email })
+                            .then(async response => {
+                                
+                                    const compared = await comparedPassword(
+                                        req.body.password,
+                                        response.password
+                                    );
+                            
+                                    if (compared === true) {
+                                        const { email, firstName, _id } = response;
+                                        const token = jwt.sign({
+                                        email, firstName, _id
+                                        }, JWT_SECRET_KEY)
+                                        res.status(200).json({
+                                        message: "Login successfull",
+                                        data: { token }
+                                        });
+                                    } else {
+                                        res.send({message: 'Password is wrong!'})
+                                    }
+                                
+                            })
+                } else {
+                    res.send({message: 'Email not registered! please register'})
+                }
+        } catch (error) {
+            console.log(error);
+        }
     }
 }
+

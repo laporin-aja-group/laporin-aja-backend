@@ -17,6 +17,9 @@ app.use(
         }, {
           url: "/users",
           methods: ["POST"]
+        }, {
+          url: "/users/login",
+          methods: ["POST"]
         }
       ]
     })
