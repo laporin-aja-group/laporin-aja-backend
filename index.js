@@ -17,6 +17,9 @@ app.use(
         }, {
           url: "/users",
           methods: ["POST"]
+        }, {
+          url: "/reports",
+          methods: ["POST","GET"]
         }
       ]
     })
@@ -33,6 +36,7 @@ app.use(
 
 app.use("/", require("./routes"))
 app.use("/users", require("./routes/users"))
+app.use("/reports", require("./routes/reports"))
 
 if (db) {
     app.listen(PORT, () => {
