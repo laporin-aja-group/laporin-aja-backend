@@ -17,6 +17,18 @@ const reportSchema = new Schema ({ //problem, suggestion, location, description
     description: {
         type: String,
         required: true
+    },
+    process: {
+        type: String,
+        required: true
+    },
+    note : {
+        type: String,
+        required: true
+    },
+    user:{
+        type: Schema.Types.ObjectId,
+        ref: "users"
     }
 });
 

@@ -23,6 +23,9 @@ app.use(
         }, {
           url: /^\/validate\/[\w]{1,}[\w\-]{1,}/i,
           methods: ["POST"]
+        }, {
+          url: "/reports",
+          methods: ["POST","GET"]
         }
       ]
     })
