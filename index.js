@@ -21,8 +21,8 @@ app.use(
           url: "/users/login",
           methods: ["POST"]
         }, {
-          url: "/reports",
-          methods: ["POST", "GET"]
+          url: /^\/validate\/[\w]{1,}[\w\-]{1,}/i,
+          methods: ["POST"]
         }
       ]
     })
@@ -40,6 +40,7 @@ app.use(
 app.use("/", require("./routes"))
 app.use("/users", require("./routes/users"))
 app.use("/reports", require("./routes/reports"))
+app.use("/validate", require("./routes/validate"))
 
 if (db) {
     app.listen(PORT, () => {

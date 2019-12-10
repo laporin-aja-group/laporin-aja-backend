@@ -28,9 +28,11 @@ module.exports = {
     login: async(req, res) => {
         try {
             const result = await Users.findOne({ email: req.body.email })
+            
             if (result) {
                 await Users.findOne({ email: req.body.email })
                             .then(async response => {
+                                console.log(response);
                                 
                                     const compared = await comparedPassword(
                                         req.body.password,
@@ -38,9 +40,9 @@ module.exports = {
                                     );
                             
                                     if (compared === true) {
-                                        const { email, firstName, _id } = response;
+                                        const { email, fullName, _id, role } = response;
                                         const token = jwt.sign({
-                                        email, firstName, _id
+                                        email, fullName, _id, role
                                         }, JWT_SECRET_KEY)
                                         res.status(200).json({
                                         message: "Login successfull",
@@ -49,7 +51,6 @@ module.exports = {
                                     } else {
                                         res.send({message: 'Password is wrong!'})
                                     }
-                                
                             })
                 } else {
                     res.send({message: 'Email not registered! please register'})
