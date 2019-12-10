@@ -41,6 +41,7 @@ app.use("/", require("./routes"))
 app.use("/users", require("./routes/users"))
 app.use("/reports", require("./routes/reports"))
 app.use("/validate", require("./routes/validate"))
+app.use("/suggest", require("./routes/suggestion"))
 
 if (db) {
     app.listen(PORT, () => {

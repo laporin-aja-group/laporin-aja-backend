@@ -7,7 +7,7 @@ mongoose.connect(DATABASE_HOST_LIVE, {
 }).then(() => {
     console.log("Connected to database");
 }).catch(error => {
-    console.log("Error cant connect to database");
+    console.log(`Error cant connect to database with error ${error}`);
     
 });
 
