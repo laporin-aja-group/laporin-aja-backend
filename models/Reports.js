@@ -6,7 +6,7 @@ const reportSchema = new Schema ({ //problem, suggestion, location, description
         type: String,
         required: true
     },
-    suggestion: {
+    problemSolving: {
         type: String,
         required: true
     },
