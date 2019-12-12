@@ -15,9 +15,14 @@ module.exports = {
     },
     getByEmail: async(req, res) => {
         try {
-            const result = await Reports.find({ email: req.params.email }).populate("users")
+            const user = await Reports.find({}).populate("user")
+            const getUser = user.filter(item=>{
+                return item.user.email === req.params.email
+                
+            })         
+            
 
-            res.status(200).json({message: "Show all report by id", data: result})
+            res.status(200).json({message: `Show all report by email ${req.params.email}` , data: getUser})
         } catch (error) {
             console.log(error);
         }
