@@ -18,6 +18,10 @@ const reportSchema = new Schema ({ //problem, suggestion, location, description
         type: String,
         required: true
     },
+    image: {
+        type: String,
+        required: true
+    },
     process: {
         type: String,
         required: true
