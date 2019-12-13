@@ -27,6 +27,22 @@ module.exports = {
             console.log(error);
         }
     },
+    getByProcess: async(req, res) => {
+        try {
+            const user = await Reports.find({}).populate("user")
+            const getUser = user.filter(item=>{
+                return item.user.email === req.params.email
+            })
+            const getProcesss = getUser.filter(item=> {
+                return item.process === req.params.process
+            })
+            
+
+            res.status(200).json({message: `Show all report by email and process ${req.params.email}` , data: getProcesss})
+        } catch (error) {
+            console.log(error);
+        }
+    },
     addReports: async(req, res) => {
         try {
             const result = await Reports.create(req.body)
