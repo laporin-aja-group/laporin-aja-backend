@@ -1,6 +1,7 @@
 const router = require("express").Router()
 
 router.get("/", require("./controller").getAllRports);
+router.get("/:id", require("./controller").getByid);
 router.get("/:email", require("./controller").getByEmail);
 router.post("/", require("./controller").addReportsUser);
 router.delete("/:id", require("./controller").deleteOne);

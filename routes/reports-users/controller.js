@@ -13,6 +13,18 @@ module.exports = {
             console.log(error);
         }
     },
+    getByid : async(req, res) => {
+        const { id } = req.params;
+        try {
+
+            const result = await ReportsUser.findOne({ _id: objectId(id) }).populate("user")
+
+            res.status(200).json({message: `Show all report by id ${id}`, data:result})
+
+        } catch (error) {
+            console.log(error);
+        }
+    },
     getByEmail: async(req, res) => {
         try {
             const user = await ReportsUser.find({}).populate("user")
