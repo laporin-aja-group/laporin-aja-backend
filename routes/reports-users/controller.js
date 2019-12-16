@@ -13,13 +13,12 @@ module.exports = {
             console.log(error);
         }
     },
-    getByid : async(req, res) => {
-        const { id } = req.params;
+    getById : async(req, res) => {
         try {
 
-            const result = await ReportsUser.findOne({ _id: objectId(id) }).populate("user")
+            const result = await ReportsUser.find({ _id: objectId(req.params.id) }).populate("user")
 
-            res.status(200).json({message: `Show all report by id ${id}`, data:result})
+            res.status(200).json({message: `Show all report by id ${req.params.id}`, data:result})
 
         } catch (error) {
             console.log(error);
