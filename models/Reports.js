@@ -38,6 +38,12 @@ const reportSchema = new Schema ({ //problem, suggestion, location, description
     user:{
         type: Schema.Types.ObjectId,
         ref: "users"
+    },
+    nameAdminHandling:{
+        type: String
+    },
+    noHpAdminHandling:{
+        type: String
     }
 });
 
