@@ -42,7 +42,7 @@ const reportSchema = new Schema ({ //problem, suggestion, location, description
     nameAdminHandling:{
         type: String
     },
-    noHpAdminHandling:{
+    emailAdminHandling:{
         type: String
     }
 });
