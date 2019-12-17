@@ -4,7 +4,7 @@ const objectId = require("mongodb").ObjectId
 module.exports = {
     getAllRports: async(req, res) => {
         try {
-
+        
             const result = await Reports.find({}).populate("user")
 
             res.status(200).json({message: "Show all report", data:result})
@@ -25,13 +25,13 @@ module.exports = {
     },
     getByEmail: async(req, res) => {
         try {
-            const user = await Reports.find({}).populate("user")
+
+            const user = await Reports.find({problem:{$regex: req.query.q, $options: 'i'}}).populate("user")
             const getUser = user.filter(item=>{
                 return item.user.email === req.params.email
                 
-            })         
-            
-
+            })
+              
             res.status(200).json({message: `Show all report by email ${req.params.email}` , data: getUser})
         } catch (error) {
             console.log(error);
@@ -74,6 +74,8 @@ module.exports = {
     },
     updateOne: async(req, res) => {
         const {id} = req.params;
+        console.log(req.body);
+        
         try {
             const result = await Reports.update({ _id : objectId(id) }, {$set : (req.body)})
 
