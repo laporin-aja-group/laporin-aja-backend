@@ -23,10 +23,24 @@ module.exports = {
             console.log(error);
         }
     },
-    getByEmail: async(req, res) => {
+    getInSearch: async(req, res) => {
         try {
 
             const user = await Reports.find({problem:{$regex: req.query.q, $options: 'i'}}).populate("user")
+            const getUser = user.filter(item=>{
+                return item.user.email === req.params.email
+                
+            })
+              
+            res.status(200).json({message: `Show all report by email ${req.params.email}` , data: getUser})
+        } catch (error) {
+            console.log(error);
+        }
+    },
+    getByEmail: async(req, res) => {
+        try {
+
+            const user = await Reports.find({}).populate("user")
             const getUser = user.filter(item=>{
                 return item.user.email === req.params.email
                 

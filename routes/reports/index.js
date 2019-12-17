@@ -2,6 +2,7 @@ const router = require("express").Router()
 
 router.get("/", require("./controller").getAllRports);
 router.get("/id/:id", require("./controller").getById);
+router.get("/search/:email", require("./controller").getInSearch);
 router.get("/email/:email", require("./controller").getByEmail);
 router.get("/process/:email/:process", require("./controller").getByProcess);
 router.post("/", require("./controller").addReports);
