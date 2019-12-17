@@ -37,6 +37,26 @@ module.exports = {
             console.log(error);
         }
     },
+    getAllProblemSearch: async(req, res) => {
+        try {
+
+            const user = await Reports.find({problem:{$regex: req.query.q, $options: 'i'}}).populate("user")
+              
+            res.status(200).json({message: `Show all report search problem` , data: user})
+        } catch (error) {
+            console.log(error);
+        }
+    },
+    getAllLocationSearch: async(req, res) => {
+        try {
+
+            const user = await Reports.find({location:{$regex: req.query.q, $options: 'i'}}).populate("user")
+              
+            res.status(200).json({message: `Show all report search location` , data: user})
+        } catch (error) {
+            console.log(error);
+        }
+    },
     getByEmail: async(req, res) => {
         try {
 
