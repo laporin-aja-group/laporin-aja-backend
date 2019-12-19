@@ -21,7 +21,7 @@ module.exports = {
 
             const result = await Users.find({ _id: objectId(req.params.id) }).populate("user")
 
-            res.status(200).json({message: "Show all users", data: result})
+            res.status(200).json({message: `Show all users by id ${req.params.id}`, data: result})
 
         } catch (error) {
             console.log(error);
