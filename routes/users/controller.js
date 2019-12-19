@@ -117,12 +117,11 @@ module.exports = {
     },
     updateOne: async(req, res) => {
         const {id} = req.params;
-        if (req.body.password) {
 
+        if (req.body.password) {
             const hash = await hashPassword(req.body.password);
-            Object.assign(req.body,{password:hash})
-            
-            }
+            Object.assign(req.body,{password:hash})    
+        }
             
         try {
             const result = await Users.update({ _id : objectId(id) }, {$set : { ...req.body}})            
