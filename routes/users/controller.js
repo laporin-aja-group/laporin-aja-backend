@@ -117,9 +117,15 @@ module.exports = {
     },
     updateOne: async(req, res) => {
         const {id} = req.params;
-        const hash = await hashPassword(req.body.password);
+        if (req.body.password) {
+
+            const hash = await hashPassword(req.body.password);
+            Object.assign(req.body,{password:hash})
+            
+            }
+            
         try {
-            const result = await Users.update({ _id : objectId(id) }, {$set : { ...req.body, password: hash}})            
+            const result = await Users.update({ _id : objectId(id) }, {$set : { ...req.body}})            
 
             res.status(200).json({message: `Data succesfully update with id ${id}`, data: result})
         } catch (error) {
