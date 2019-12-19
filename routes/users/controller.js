@@ -16,6 +16,17 @@ module.exports = {
             console.log(error);
         }
     },
+    getOneUser: async(req, res) => {
+        try {
+
+            const result = await Users.find({ _id: objectId(req.params.id) }).populate("user")
+
+            res.status(200).json({message: "Show all users", data: result})
+
+        } catch (error) {
+            console.log(error);
+        }
+    },
     addUsers: async(req, res) => {
         const hash = await hashPassword(req.body.password);
         try {
