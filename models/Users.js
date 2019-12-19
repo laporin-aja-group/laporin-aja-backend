@@ -21,6 +21,10 @@ const userSchema = new Schema ({
     role: {
         type: String,
         required: true
+    }, 
+    imageUrl: {
+        type: String,
+        required: true
     }
 })
 

@@ -2,6 +2,7 @@ const {Users} = require("../../models")
 const { JWT_SECRET_KEY } = require("../../config")
 const { hashPassword, comparedPassword } = require("../../helpers")
 const jwt = require("jsonwebtoken")
+const objectId = require("mongodb").ObjectId
 
 module.exports = {
     getAllUsers: async(req, res) => {
@@ -21,6 +22,21 @@ module.exports = {
             const result = await Users.create({ ...req.body, password: hash})
             
             res.status(201).json({message: "Data users successfully added", data: result})
+        } catch (error) {
+            console.log(error);
+        }
+    },
+    setPassword : async(req, res) => {
+
+        const {id} = req.params;
+        const hash = await hashPassword(req.body.password);
+
+        try {
+
+            const result = await Users.update({ _id : objectId(id) }, {$set : { password : hash}})
+
+            res.status(200).json({message: `Data succesfully update with id ${id}`, data: result})
+
         } catch (error) {
             console.log(error);
         }
@@ -55,6 +71,45 @@ module.exports = {
                 } else {
                     res.send({message: 'Email not registered! please register'})
                 }
+        } catch (error) {
+            console.log(error);
+        }
+    },
+    checkPassword : async(req, res) => {
+        try {
+            const result = await Users.findOne({ email: req.body.email })
+            
+            if (result) {
+                await Users.findOne({ email: req.body.email })
+                            .then(async response => {
+                                console.log(response);
+                                
+                                    const compared = await comparedPassword(
+                                        req.body.password,
+                                        response.password
+                                    );
+                            
+                                    if (compared === true) {
+                                        res.status(200).json({
+                                        message: "The password you entered is correct"
+                                        });
+                                    } else {
+                                        res.send({message: 'The password you entered is incorrect!'})
+                                    }
+                            })
+                } else {
+                    res.send({message: 'Email not registered!'})
+                }
+        } catch (error) {
+            console.log(error);
+        }
+    },
+    updateOne: async(req, res) => {
+        const {id} = req.params;
+        try {
+            const result = await Users.update({ _id : objectId(id) }, {$set : (req.body)})
+
+            res.status(200).json({message: `Data succesfully update with id ${id}`, data: result})
         } catch (error) {
             console.log(error);
         }
